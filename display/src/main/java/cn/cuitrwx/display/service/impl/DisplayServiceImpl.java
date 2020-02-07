@@ -1,9 +1,12 @@
 package cn.cuitrwx.display.service.impl;
 
+import cn.cuitrwx.display.feign.IDisplayFeign;
 import cn.cuitrwx.display.model.PostPO;
 import cn.cuitrwx.display.model.QuestionsPO;
 import cn.cuitrwx.display.model.SlideDataPO;
 import cn.cuitrwx.display.service.DisplayService;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,10 +14,12 @@ import java.util.List;
 
 @Service
 public class DisplayServiceImpl implements DisplayService {
+    @Autowired
+    private IDisplayFeign displayFeign;
     @Override
     public List getSlide() {
         List slides = new ArrayList<>();
-        slides.add(new SlideDataPO("slides1", "slides1"));
+        slides.add(new SlideDataPO(displayFeign.helloworld(), "slides1"));
         slides.add(new SlideDataPO("slides2", "slides2"));
         return slides;
     }
