@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace绑定一个对应的dao/mapper接口-->
+<mapper namespace="cn.cuitrwx.database.dao.AppointmentUserDao">
+
+    <select id="getAppointment" resultType="cn.cuitrwx.database.model.Appointment">
+        select * from cuitrwx.appointment where id = #{id} and status = "2" or status = "3";
+    </select>
+    <select id="getAllAppointment" resultType="cn.cuitrwx.database.model.Appointment">
+        select * from cuitrwx.appointment where id = #{id}
+    </select>
+
+    <insert id="postAppointment" parameterType="cn.cuitrwx.database.model.Appointment">
+        insert into cuitrwx.appointment(id, begintime, endtime, status, illustrate,
+        createTime)values(#{id},#{begintime},#{endtime}, #{status},#{illustrate},#{createTime})
+    </insert>
+
+    <update id="cancel">
+        update cuitrwx.appointment set status = 0 where id = #{id}
+    </update>
+
+</mapper>
+

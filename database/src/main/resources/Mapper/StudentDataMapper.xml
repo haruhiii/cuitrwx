@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace绑定一个对应的dao/mapper接口-->
+<mapper namespace="cn.cuitrwx.database.dao.StudentDataUserDao">
+
+    <select id="getStudentData"  resultType="cn.cuitrwx.database.model.Studentdata">
+        select * from cuitrwx.user where id = #{id}
+    </select>
+
+    <insert id="postStudentData" parameterType="cn.cuitrwx.database.model.Studentdata">
+        insert into cuitrwx.user(id, name, status, studentid, classname, grade,major,academy)
+        values(#{id},#{name},#{status},
+        #{studentid},#{classname},#{grade},#{major} ,#{academy})
+    </insert>
+
+    <update id="deleteStudentData">
+        update cuitrwx.user set status = 0 where id = #{id}
+    </update>
+
+    <update id="putsStudentData" parameterType="cn.cuitrwx.database.model.Studentdata">
+        update cuitrwx.user set status = #{status}, studentid = #{studentid},name = #{name}, classname = #{classname},
+        grade = #{grade},major = #{major} ,academy = #{academy} where id = #{studentid}
+    </update>
+</mapper>
