@@ -1,0 +1,26 @@
+
+
+server:
+    port: 8081
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eurekaserver:11400/eureka/
+  instance:
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    preferIpAddress: true
+
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+# 配置Gateway日志等级，输出转发细节信息
+logging:
+  level:
+    org.springframework.cloud.gateway: debug

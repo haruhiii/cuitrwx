@@ -7,10 +7,10 @@ eureka:
 
   client:
     service-url:
-      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+      defaultZone: http://eurekaserver:11400/eureka/
 
   instance:
-    hostname: eurekaserver1
+    hostname: eurekaserver
     instance-id: ${spring.cloud.client.ip-address}:${server.port}
     
 spring:

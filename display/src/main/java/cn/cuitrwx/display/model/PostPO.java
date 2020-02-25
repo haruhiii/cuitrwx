@@ -8,7 +8,7 @@ import java.util.Date;
 //@ApiModel(value = "article", description = "文章对象")
 public class PostPO {
 
-    private String id;
+    private Integer id;
     private String title;
     private String content;
     private String outline;
@@ -19,13 +19,18 @@ public class PostPO {
     private Date modifyTime;
 
 
-    public PostPO(String id,String outline,String content){
+    public PostPO(String title,String outline,String content){
+        this.title=title;
+        this.outline=outline;
+        this.content=content;
+    }
+    public PostPO(Integer id,String outline,String content){
         this.id=id;
         this.outline=outline;
         this.content=content;
     }
 
-    public PostPO(String id,String outline){
+    public PostPO(Integer id,String outline){
         this.id=id;
         this.outline=outline;
     }
@@ -39,11 +44,11 @@ public class PostPO {
         this.outline = outline;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

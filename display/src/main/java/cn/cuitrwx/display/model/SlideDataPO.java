@@ -4,28 +4,29 @@ import java.util.List;
 
 public class SlideDataPO {
 
-    private String image;
-    private String url;
+    private String src;
+    private String href;
 
-    public SlideDataPO(String image, String url){
-        this.image=image;
-        this.url=url;
+    public SlideDataPO(String src, String href) {
+        this.setSrc(src);
+        this.setHref(href);
     }
 
-    public String getImage() {
-        return image;
+    public String getSrc() {
+        return src;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setSrc(String src) {
+        this.src = src;
     }
 
-    public String getUrl() {
-        return url;
+    public String getHref() {
+        return href;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setHref(String href) {
+        this.href = href;
     }
+
 
 }

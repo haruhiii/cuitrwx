@@ -2,7 +2,7 @@ package cn.cuitrwx.database.dao;
 
 
 import cn.cuitrwx.database.model.StudyAbroad;
-;
+
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Repository;
 
