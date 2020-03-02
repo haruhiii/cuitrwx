@@ -1,7 +1,7 @@
 package cn.cuitrwx.database.service.ImpI;
 
 
-import cn.cuitrwx.database.dao.ArticleUserDao;
+import cn.cuitrwx.database.dao.ArticleDao;
 import cn.cuitrwx.database.model.Article;
 import cn.cuitrwx.database.model.DataResponseVO;
 import cn.cuitrwx.database.model.ErrorCode;
@@ -17,7 +17,7 @@ import java.util.List;
 public class ArticleServiceImpl implements ArticleService {
 
 
-    ArticleUserDao dao = mybatisutil.getSqlSession().getMapper(ArticleUserDao.class);
+    ArticleDao dao = mybatisutil.getSqlSession().getMapper(ArticleDao.class);
 
     @Override
     public DataResponseVO<List<Article>> getAllArticle() {

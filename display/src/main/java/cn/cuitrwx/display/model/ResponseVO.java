@@ -8,8 +8,9 @@ public class ResponseVO<T> {
     private T data;
 
     public ResponseVO(T data) {
-        status = 0;
+        this.status = 0;
         this.data = data;
+        this.errCode=ErrorCode.SUCCESS;
     }
 
     public ResponseVO(ErrorCode errCode, String ErrMsg) {

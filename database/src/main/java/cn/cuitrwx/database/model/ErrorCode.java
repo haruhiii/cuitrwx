@@ -3,7 +3,9 @@ package cn.cuitrwx.database.model;
 public enum  ErrorCode {
 
     FAILED("-1","failed"),
-    SUCCESS("0","success");
+    EMPTY("0","empty"),
+    SUCCESS("1","success"),
+    USELESS("2","useless");
 
 
     private String code;

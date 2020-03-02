@@ -23,6 +23,6 @@
         <mapper resource="Mapper/StudyAbroadMapper.xml"/>
         <mapper resource="Mapper/StudentDataMapper.xml"/>
         <mapper resource="Mapper/ProgramuserMapper.xml"/>
-
+        <mapper resource="Mapper/SlideMapper.xml"/> 
     </mappers>
 </configuration>

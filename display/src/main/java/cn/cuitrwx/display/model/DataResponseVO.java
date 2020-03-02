@@ -1,7 +1,8 @@
-package cn.cuitrwx.database.model;
+package cn.cuitrwx.display.model;
 
 
 public class DataResponseVO<T> {
+    private int status;
     private ErrorCode errCode;
     private String errMsg;
     private T data;
@@ -11,25 +12,13 @@ public class DataResponseVO<T> {
         this.errCode=ErrorCode.SUCCESS;
     }
 
-    public DataResponseVO(ErrorCode errCode){
-        switch (errCode) {
-            case FAILED:
-                this.errMsg = "数据库服务发生未知错误";
-                break;
-            case EMPTY:
-                this.errMsg = "没有符合条件的数据";
-                break;
-            case USELESS:
-                this.errMsg = "数据库未发生变化(无效语句)";
-            break;
-            default:
-                break;
-        }
-        this.errCode = errCode;
-    }
     public DataResponseVO(ErrorCode errCode, String ErrMsg) {
+        status = -1;
         this.errCode = errCode;
         this.errMsg = ErrMsg;
+    }
+    public int getStatus() {
+        return status;
     }
 
     public ErrorCode getErrCode() {
@@ -54,6 +43,10 @@ public class DataResponseVO<T> {
 
     public void setErrMsg(String errMsg) {
         this.errMsg = errMsg;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
 

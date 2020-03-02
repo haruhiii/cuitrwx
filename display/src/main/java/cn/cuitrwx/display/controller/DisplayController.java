@@ -1,7 +1,8 @@
 package cn.cuitrwx.display.controller;
 
+import cn.cuitrwx.display.model.ArticalPO;
+import cn.cuitrwx.display.model.ErrorCode;
 import cn.cuitrwx.display.model.NoticePO;
-import cn.cuitrwx.display.model.PostPO;
 import cn.cuitrwx.display.model.ResponseVO;
 import cn.cuitrwx.display.service.DisplayService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,14 +17,19 @@ public class DisplayController {
     @Autowired
     DisplayService displayService;
 
-    /** 获取轮播图数据
+    /**
+     * 获取轮播图数据
      *
      * @return
      */
     @GetMapping("/slide")
-    public  ResponseVO getSlideData(){
-        List slideData = displayService.getSlide();
-        return new ResponseVO(slideData);
+    public ResponseVO getSlideData() {
+        try {
+            return new ResponseVO(displayService.getSlide());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseVO(ErrorCode.FAILED,"display/getSlideData 发生错误");
+        }
     }
 
     /** 获取轮播图数据
@@ -54,12 +60,12 @@ public class DisplayController {
 
 
         List posts = new ArrayList<>();
-        posts.add(new PostPO("关于人员进出校园网络申报的通知", "全校师生：在新冠肺炎疫情防控的关键时期，为便于行门岗管理，学校下：", "post1"));
-        posts.add(new PostPO("中国科学院大气物理研究所曾宁研究员来我校作学术交流", "中国科学院大气物理研究所曾宁研究员来我校作学术交流中国科学院大校作学术交流", "post2"));
-        posts.add(new PostPO("气物理研究所曾宁研究员来我校作学术交流", "理研究所曾宁研究员来我校作学术交中国科学流中国科学院大校作学术交流", "post2"));
-        posts.add(new PostPO("中123院大气物理研究所曾宁研究员来我校作学术交流", "中国科学院123研究所曾宁研究员来我校作学术交流中国科学院大校作学术交流", "post2"));
+        posts.add(new ArticalPO("关于人员进出校园网络申报的通知", "全校师生：在新冠肺炎疫情防控的关键时期，为便于行门岗管理，学校下：", "post1"));
+        posts.add(new ArticalPO("中国科学院大气物理研究所曾宁研究员来我校作学术交流", "中国科学院大气物理研究所曾宁研究员来我校作学术交流中国科学院大校作学术交流", "post2"));
+        posts.add(new ArticalPO("气物理研究所曾宁研究员来我校作学术交流", "理研究所曾宁研究员来我校作学术交中国科学流中国科学院大校作学术交流", "post2"));
+        posts.add(new ArticalPO("中123院大气物理研究所曾宁研究员来我校作学术交流", "中国科学院123研究所曾宁研究员来我校作学术交流中国科学院大校作学术交流", "post2"));
 
-        posts.add(new PostPO("中123院大气物理研究所曾宁研究员来我校作学术交流", "中国科学院123研究所曾宁研究员来我校作学术交流中国科学院大校作学术交流", "post2"));
+        posts.add(new ArticalPO("中123院大气物理研究所曾宁研究员来我校作学术交流", "中国科学院123研究所曾宁研究员来我校作学术交流中国科学院大校作学术交流", "post2"));
 
         return new ResponseVO(posts);
     }
@@ -70,7 +76,7 @@ public class DisplayController {
      */
     @GetMapping("/post")
     public  ResponseVO getPostContent(String id){
-        PostPO postContent = displayService.getPostContent(id);
+        ArticalPO postContent = displayService.getPostContent(id);
         return new ResponseVO(postContent);
     }
 

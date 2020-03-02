@@ -5,7 +5,7 @@ server:
 eureka:
   client:
     service-url:
-      defaultZone: http://eurekaserver:11400/eureka/
+      defaultZone: http://eurekaserver:11400/eureka/, http://eurekaserver1:11400/eureka/
   instance:
     instance-id: ${spring.cloud.client.ip-address}:${server.port}
     
@@ -17,6 +17,3 @@ spring:
     username: root
     password: password
     driverClassName: com.mysql.jdbc.Driver
-    mybatis:
-      mapper-locations: classpath:/*.xml
-

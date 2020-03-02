@@ -17,31 +17,31 @@ import java.util.List;
 @RestController
 public class ArticleController {
     @Autowired
-    private cn.cuitrwx.database.service.ArticleService ArticleService;
+    private ArticleService articleService;
 
     @GetMapping("/article")
     DataResponseVO<Article> getArticle(String articleid) {
-        return ArticleService.getArticle(articleid);
+        return articleService.getArticle(articleid);
     }
 
     @GetMapping("/allarticle")
     DataResponseVO<List<Article>> getArticle() {
-        return ArticleService.getAllArticle();
+        return articleService.getAllArticle();
     }
 
     @PostMapping("/article")
     DataResponseVO PostArticle(Article article) {
-        return ArticleService.postArticle(article);
+        return articleService.postArticle(article);
     }
 
     @DeleteMapping("/article")
     DataResponseVO deleteArticle(String articleid) {
-        return ArticleService.deleteArticle(articleid);
+        return articleService.deleteArticle(articleid);
     }
 
     @PutMapping("/article")
     DataResponseVO putArticle(UpdateArticle updateArticle) {
-        return ArticleService.putArticle(updateArticle);
+        return articleService.putArticle(updateArticle);
     }
 
 }

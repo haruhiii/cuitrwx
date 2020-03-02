@@ -1,14 +1,14 @@
 package cn.cuitrwx.display.service;
 
+import cn.cuitrwx.display.model.ArticalPO;
 import cn.cuitrwx.display.model.NoticePO;
-import cn.cuitrwx.display.model.PostPO;
 
 import java.util.List;
 
 public interface DisplayService {
-    List getSlide();
+    List getSlide() throws Exception;
     List getPost(Integer start, Integer end);
-    PostPO getPostContent(String id);
+    ArticalPO getPostContent(String id);
     NoticePO getNotice();
     List getQuestions();
 }

@@ -1,12 +1,11 @@
 package cn.cuitrwx.display.model;
 
-import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
 //@Component
 //@ApiModel(value = "article", description = "文章对象")
-public class PostPO {
+public class ArticalPO {
 
     private Integer id;
     private String title;
@@ -14,23 +13,20 @@ public class PostPO {
     private String outline;
     private String status;
     private String author;
-    private Date createTime;
-    private Date deployTime;
-    private Date modifyTime;
 
-
-    public PostPO(String title,String outline,String content){
-        this.title=title;
-        this.outline=outline;
-        this.content=content;
-    }
-    public PostPO(Integer id,String outline,String content){
-        this.id=id;
-        this.outline=outline;
-        this.content=content;
+    public ArticalPO(String title, String outline, String content) {
+        this.title = title;
+        this.outline = outline;
+        this.content = content;
     }
 
-    public PostPO(Integer id,String outline){
+    public ArticalPO(Integer id, String outline, String content) {
+        this.id = id;
+        this.outline = outline;
+        this.content = content;
+    }
+
+    public ArticalPO(Integer id, String outline) {
         this.id=id;
         this.outline=outline;
     }
@@ -83,30 +79,5 @@ public class PostPO {
     public void setAuthor(String author) {
         this.author = author;
     }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getDeployTime() {
-        return deployTime;
-    }
-
-    public void setDeployTime(Date deployTime) {
-        this.deployTime = deployTime;
-    }
-
-    public Date getModifyTime() {
-        return modifyTime;
-    }
-
-    public void setModifyTime(Date modifyTime) {
-        this.modifyTime = modifyTime;
-    }
-
 
 }
