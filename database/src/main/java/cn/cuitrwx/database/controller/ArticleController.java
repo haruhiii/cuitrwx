@@ -1,10 +1,9 @@
 
-
 package cn.cuitrwx.database.controller;
 
-import cn.cuitrwx.database.model.Article;
+import cn.cuitrwx.database.model.ArticlePO;
 import cn.cuitrwx.database.model.DataResponseVO;
-import cn.cuitrwx.database.model.UpdateArticle;
+import cn.cuitrwx.database.model.ErrorCode;
 import cn.cuitrwx.database.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -19,29 +18,61 @@ public class ArticleController {
     @Autowired
     private ArticleService articleService;
 
+    
     @GetMapping("/article")
-    DataResponseVO<Article> getArticle(String articleid) {
-        return articleService.getArticle(articleid);
+    DataResponseVO<ArticlePO> getArticle(@RequestParam Integer id){
+        try {
+            ArticlePO article = articleService.getArticle(id);
+            return article==null?
+                    new DataResponseVO<>(ErrorCode.EMPTY):new DataResponseVO<>(article);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new DataResponseVO<>(ErrorCode.FAILED);
+        }
     }
 
-    @GetMapping("/allarticle")
-    DataResponseVO<List<Article>> getArticle() {
-        return articleService.getAllArticle();
+    @GetMapping("/articles")
+    DataResponseVO<List<ArticlePO>> getArticles(@RequestParam Integer start,@RequestParam Integer total){
+        try {
+            List articles = articleService.getArticles(start,total);
+            return articles == null?
+                    new DataResponseVO<>(ErrorCode.EMPTY):new DataResponseVO<>(articles);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new DataResponseVO<>(ErrorCode.FAILED);
+        }
     }
-
-    @PostMapping("/article")
-    DataResponseVO PostArticle(Article article) {
-        return articleService.postArticle(article);
-    }
-
-    @DeleteMapping("/article")
-    DataResponseVO deleteArticle(String articleid) {
-        return articleService.deleteArticle(articleid);
+    @PostMapping("/articles")
+    DataResponseVO<Integer> postArticle(@RequestBody ArticlePO newArticle){
+        try {
+            return  articleService.postArticle(newArticle) == 0?
+                    new DataResponseVO<>(ErrorCode.USELESS):new DataResponseVO<>(1);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new DataResponseVO<>(ErrorCode.FAILED);
+        }
     }
 
     @PutMapping("/article")
-    DataResponseVO putArticle(UpdateArticle updateArticle) {
-        return articleService.putArticle(updateArticle);
+    DataResponseVO<Integer> putArticle(@RequestBody ArticlePO newArticle){
+        try {
+            return  articleService.putArticle(newArticle) == 0?
+                    new DataResponseVO<>(ErrorCode.USELESS):new DataResponseVO<>(1);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new DataResponseVO<>(ErrorCode.FAILED);
+        }
     }
+    @DeleteMapping("/article")
+    DataResponseVO<Integer> deleteArticle(@RequestParam Integer id){
+        try {
+            return  articleService.deleteArticle(id) == 0?
+                    new DataResponseVO<>(ErrorCode.USELESS):new DataResponseVO<>(1);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new DataResponseVO<>(ErrorCode.FAILED);
+        }
+    }
+
 
 }

@@ -2,23 +2,22 @@ package cn.cuitrwx.database.service;
 
 
 
-import cn.cuitrwx.database.model.Article;
+import cn.cuitrwx.database.model.ArticlePO;
 import cn.cuitrwx.database.model.DataResponseVO;
-import cn.cuitrwx.database.model.UpdateArticle;
-
 import java.util.List;
 
 
 public interface ArticleService {
 
-    DataResponseVO<Article> getArticle(String articleid);
+    ArticlePO getArticle(Integer id);
 
-    DataResponseVO<List<Article>> getAllArticle();
+    List<ArticlePO> getArticles(Integer start,Integer total);
 
-    DataResponseVO postArticle(Article article);
+    Integer postArticle(ArticlePO newArticle);
 
-    DataResponseVO putArticle(UpdateArticle updatearticle);
+    Integer putArticle(ArticlePO newArticle);
 
-    DataResponseVO deleteArticle(String articleid);
+    Integer deleteArticle(Integer id);
+    
 
 }

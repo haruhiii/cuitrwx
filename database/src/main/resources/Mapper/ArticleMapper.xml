@@ -3,28 +3,41 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--namespace绑定一个对应的dao/mapper接口-->
+
+
 <mapper namespace="cn.cuitrwx.database.dao.ArticleDao">
+    <resultMap type="cn.cuitrwx.database.model.ArticlePO" id="ArticlePO">
+        <id property="id" column="id" />
+        <result property="title" column="title" />
+        <result property="outline" column="outline" />
+        <result property="content" column="content" />
+        <result property="createTime" column="create_time" />
+    </resultMap>
 
-    <select id="getArticle"  resultType="cn.cuitrwx.database.model.Article">
-        select * from cuitrwx.article where articleid = #{articleid}
+    <select id="getArticle"  resultType="cn.cuitrwx.database.model.ArticlePO">
+        select * from cuitrwx.article where id = #{id} and is_deleted = false
     </select>
 
-    <select id="getAllArticle"  resultType="cn.cuitrwx.database.model.Article">
-        select * from cuitrwx.article
+    <select id="getArticles"  resultType="cn.cuitrwx.database.model.ArticlePO">
+        select * from cuitrwx.article where  is_deleted = false order by create_time  desc  limit #{start},#{total}
     </select>
 
-    <insert id="postArticle" parameterType="cn.cuitrwx.database.model.Article">
-        insert into cuitrwx.article(articleid, title, content, status, author,createTime, deployTime, modifyTime)
-        values(#{articleid},#{title},#{content},
-        #{status},#{author},#{createTime},
-        #{deployTime},#{modifyTime})
+    <insert id="postArticle" parameterType="cn.cuitrwx.database.model.ArticlePO">
+        insert into cuitrwx.article(title, outline,content)
+        values(#{title},#{outline},#{content})
     </insert>
 
     <update id="deleteArticle">
-        update cuitrwx.article set status = 0 where articleid = #{articleid}
+        update cuitrwx.article set is_deleted = true where id = #{id} and is_deleted = false
     </update>
 
-    <update id="putArticle" parameterType="cn.cuitrwx.database.model.UpdateArticle">
-        update cuitrwx.article set title = #{title},content = #{content}, author = #{author}, modifyTime = #{modifyTime} where articleid = #{articleid}
+    <update id="putArticle" parameterType="cn.cuitrwx.database.model.ArticlePO">
+        update cuitrwx.article 
+        <trim prefix="set" suffixOverrides=",">
+            <if test="title != null">title=#{title},</if>
+            <if test="outline != null">outline=#{outline},</if>
+            <if test="content != content">content=#{content},</if>
+        </trim> 
+        where id = #{id}
     </update>
 </mapper>

@@ -1,7 +1,6 @@
 package cn.cuitrwx.database.dao;
 
-import cn.cuitrwx.database.model.Article;
-import cn.cuitrwx.database.model.UpdateArticle;
+import cn.cuitrwx.database.model.ArticlePO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -10,14 +9,14 @@ import java.util.List;
 @Mapper
 @Repository
 public interface ArticleDao {
-    Article getArticle(String articleid);
+    ArticlePO getArticle(Integer id);
 
-    List<Article> getAllArticle();
+    List<ArticlePO> getArticles(Integer start,Integer total);
 
-    void postArticle(Article article);
+    Integer postArticle(ArticlePO newArticle);
 
-    void putArticle(UpdateArticle updatearticle);
+    Integer putArticle(ArticlePO newArticle);
 
-    void deleteArticle(String articleid);
+    Integer deleteArticle(Integer id);
 
 }

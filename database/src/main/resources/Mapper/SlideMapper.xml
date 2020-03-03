@@ -8,39 +8,39 @@
         <id property="id" column="id" />
         <result property="type" column="type" />
         <result property="src" column="src" />
-        <result property="articalId" column="artical_id" />
+        <result property="articleId" column="article_id" />
         <result property="href" column="href" />
     </resultMap>
     <select id="getSlides" resultMap="SlidePO" >
-        select * from cuitrwx.slide  where is_delete = false
+        select * from cuitrwx.slide  where is_deleted = false
     </select>
     <select id="getDeletedSlides" resultMap="SlidePO" >
-        select * from cuitrwx.slide  where is_delete = true
+        select * from cuitrwx.slide  where is_deleted = true
     </select>
-    <update id="postSlide"  parameterType="cn.cuitrwx.database.model.SlidePO"> 
+    <update id="putSlide"  parameterType="cn.cuitrwx.database.model.SlidePO"> 
         update cuitrwx.slide 
             <trim prefix="set" suffixOverrides=",">
                 <if test="type != null">type=#{type},</if>
                 <if test="src != null">src=#{src},</if>
-                <if test="articalId != null">artical_id=#{articalId},</if>
+                <if test="articleId != null">article_id=#{articleId},</if>
                 <if test="href != null">href=#{href},</if>
             </trim> 
-            where id=#{id} and is_delete = false
+            where id=#{id} and is_deleted = false
     </update>
     <update id="deleteSlide" > 
         update cuitrwx.slide 
-        set is_delete = true
-        where id=#{id} and is_delete = false
+        set is_deleted = true
+        where id=#{id} and is_deleted = false
     </update>
     <update id="restoreSlide" > 
         update cuitrwx.slide 
-        set is_delete = false
-        where id=#{id} and is_delete = true
+        set is_deleted = false
+        where id=#{id} and is_deleted = true
     </update>
-    <insert id="putSlide" parameterType="cn.cuitrwx.database.model.SlidePO"> 
+    <insert id="postSlide" parameterType="cn.cuitrwx.database.model.SlidePO"> 
       insert into 
-        cuitrwx.slide (type, src, artical_id,href) 
-      values(#{type},#{src},#{articalId},#{href})
+        cuitrwx.slide (type, src, article_id,href) 
+      values(#{type},#{src},#{articleId},#{href})
     </insert>
 
 </mapper>
