@@ -1,37 +1,34 @@
 package cn.cuitrwx.database.service.ImpI;
 
-
-import cn.cuitrwx.database.dao.AppointmentUserDao;
-import cn.cuitrwx.database.model.Appointment;
-import cn.cuitrwx.database.model.DataResponseVO;
-import cn.cuitrwx.database.model.ErrorCode;
-import cn.cuitrwx.database.mybatisutil.mybatisutil;
+import cn.cuitrwx.database.dao.AppointmentDao;
+import cn.cuitrwx.database.model.AppointmentPO;
+import cn.cuitrwx.database.mybatisutil.Mybatisutil;
 import cn.cuitrwx.database.service.AppointmentService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 public class AppointmentServiceImpI implements AppointmentService {
-    AppointmentUserDao dao = mybatisutil.getSqlSession().getMapper(AppointmentUserDao.class);
+    AppointmentDao dao = Mybatisutil.getSqlSession().getMapper(AppointmentDao.class);
+
     @Override
-    public DataResponseVO<Appointment> getAppointment(String id) {
-        return new DataResponseVO<>(dao.getAppointment(id));
+    public AppointmentPO getAppointment(Integer id) {
+        return dao.getAppointment(id);
     }
 
     @Override
-    public DataResponseVO<List<Appointment>> getAllAppointment(String id) {
-        return new DataResponseVO<>(dao.getAllAppointment(id));
+    public List<AppointmentPO> getAppointments(Integer start,Integer total) {
+        return dao.getAppointments(start,total);
     }
 
     @Override
-    public DataResponseVO postAppointment(Appointment appointment) {
-        dao.postAppointment(appointment);
-        return new DataResponseVO<>(ErrorCode.FAILED, "testFailed");
+    public Integer postAppointment(AppointmentPO newAppointment) {
+        return dao.postAppointment(newAppointment);
     }
 
     @Override
-    public DataResponseVO cancel(String id) {
-        dao.cancel(id);
-        return new DataResponseVO<>(ErrorCode.FAILED, "testFailed");
+    public Integer putAppointment(AppointmentPO newAppointment) {
+        return dao.putAppointment(newAppointment);
     }
 }

@@ -20,7 +20,7 @@ public class ArticleController {
 
     
     @GetMapping("/article")
-    DataResponseVO<ArticlePO> getArticle(@RequestParam Integer id){
+    DataResponseVO<ArticlePO> getArticle(@RequestParam("id") Integer id){
         try {
             ArticlePO article = articleService.getArticle(id);
             return article==null?
@@ -32,17 +32,17 @@ public class ArticleController {
     }
 
     @GetMapping("/articles")
-    DataResponseVO<List<ArticlePO>> getArticles(@RequestParam Integer start,@RequestParam Integer total){
+    DataResponseVO<List<ArticlePO>> getArticles(@RequestParam("start") Integer start,@RequestParam("total") Integer total){
         try {
             List articles = articleService.getArticles(start,total);
-            return articles == null?
+            return articles == null||articles.size()==0?
                     new DataResponseVO<>(ErrorCode.EMPTY):new DataResponseVO<>(articles);
         } catch (Exception e) {
             e.printStackTrace();
             return new DataResponseVO<>(ErrorCode.FAILED);
         }
     }
-    @PostMapping("/articles")
+    @PostMapping("/article")
     DataResponseVO<Integer> postArticle(@RequestBody ArticlePO newArticle){
         try {
             return  articleService.postArticle(newArticle) == 0?

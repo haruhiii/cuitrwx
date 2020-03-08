@@ -1,0 +1,13 @@
+server:
+    port: 11412
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eurekaserver:11400/eureka/,http://eurekaserver1:11400/eureka/
+  instance:
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    
+spring:
+  application:
+    name: login

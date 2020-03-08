@@ -28,7 +28,7 @@ public class SlideController {
     public  DataResponseVO<List<SlidePO>> getSlides(){
         try {
             List slides = slideService.getSlides();
-            return slides==null?
+            return slides==null||slides.size()==0?
                  new DataResponseVO<>(ErrorCode.EMPTY):new DataResponseVO<>(slides);
         } catch (Exception e) {
             e.printStackTrace();

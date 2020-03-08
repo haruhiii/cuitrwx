@@ -4,7 +4,7 @@ import cn.cuitrwx.database.dao.StudyAbroadUserDao;
 import cn.cuitrwx.database.model.DataResponseVO;
 import cn.cuitrwx.database.model.ErrorCode;
 import cn.cuitrwx.database.model.StudyAbroad;
-import cn.cuitrwx.database.mybatisutil.mybatisutil;
+import cn.cuitrwx.database.mybatisutil.Mybatisutil;
 import cn.cuitrwx.database.service.StudyAbroadService;
 
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class StudyAbroadServicelmpl implements StudyAbroadService {
 
-    StudyAbroadUserDao dao = mybatisutil.getSqlSession().getMapper(StudyAbroadUserDao.class);
+    StudyAbroadUserDao dao = Mybatisutil.getSqlSession().getMapper(StudyAbroadUserDao.class);
 
     @Override
     public DataResponseVO<StudyAbroad> getStudent(String studentid) {

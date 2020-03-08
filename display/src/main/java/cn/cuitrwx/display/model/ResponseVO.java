@@ -8,16 +8,26 @@ public class ResponseVO<T> {
     private T data;
 
     public ResponseVO(T data) {
-        this.status = 0;
         this.data = data;
-        this.errCode=ErrorCode.SUCCESS;
+        if(data==null){
+            this.errCode=ErrorCode.EMPTY;
+            this.errMsg = "空数据";
+        }else{
+            this.errCode=ErrorCode.SUCCESS;
+        }
     }
 
     public ResponseVO(ErrorCode errCode, String ErrMsg) {
-        status = -1;
         this.errCode = errCode;
         this.errMsg = ErrMsg;
     }
+
+    public ResponseVO(T data, ErrorCode errCode, String ErrMsg) {
+        this.data = data;
+        this.errCode = errCode;
+        this.errMsg = ErrMsg;
+    }
+
 
     public int getStatus() {
         return status;

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace绑定一个对应的dao/mapper接口-->
+
+
+<mapper namespace="cn.cuitrwx.database.dao.StudentDao">
+    <resultMap type="cn.cuitrwx.database.model.StudentPO" id="StudentMap">
+        <id property="openid" column="openid" />
+        <result property="openid" column="openid" />
+        <result property="name" column="name" />
+        <result property="studentid" column="studentid" />
+        <result property="className" column="class_name" />
+        <result property="grade" column="grade" />
+        <result property="major" column="major" />
+        <result property="academy" column="academy" />
+        <result property="avatarUrl" column="avatar_url" />
+        <result property="province" column="province" />
+        <result property="city" column="city" />
+        <result property="gender" column="gender" />
+        <result property="nickName" column="nick_name" />
+        <result property="language" column="language" />
+        <result property="country" column="country" />
+        <result property="sessionKey" column="session_key" />
+    </resultMap>
+
+    <select id="getStudent"  resultMap="StudentMap">
+        select * from cuitrwx.student where openid = #{openid} and is_deleted = false
+    </select>
+
+    <select id="getStudents"  resultMap="StudentMap">
+        select * from cuitrwx.student where  is_deleted = false order by studentid  asc  limit #{start},#{total}
+    </select>
+    <insert id="postStudent" parameterType="cn.cuitrwx.database.model.StudentPO">
+        <!-- insert into cuitrwx.student(openid,studentid,name,class_name,grade,major,academy,avatar_url,province,city,gender,nick_name,language,country,session_key)
+        values(#{openid},#{studentid},#{name},#{className},#{grade},#{major},#{academy},#{avatarUrl},#{province},#{city},#{gender},#{nickName},#{language},#{country},#{sessionKey}) -->
+        insert into cuitrwx.student(openid,session_key)
+        values(#{openid},#{sessionKey})
+    </insert>
+    <update id="deleteStudent">
+        update cuitrwx.student set is_deleted = true where openid = #{openid} and is_deleted = false
+    </update>
+
+    <update id="putStudent" parameterType="cn.cuitrwx.database.model.StudentPO">
+        update cuitrwx.student 
+        <trim prefix="set" suffixOverrides=",">
+            <if test="studentid != null">studentid = #{studentid},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="className != null">class_name = #{className},</if>
+            <if test="grade != null">grade = #{grade},</if>
+            <if test="major != null">major = #{major},</if>
+            <if test="academy != null">academy = #{academy},</if>
+            <if test="avatarUrl != null">avatar_url = #{avatarUrl},</if>
+            <if test="province != null">province = #{province},</if>
+            <if test="city != null">city = #{city},</if>
+            <if test="gender != null">gender = #{gender},</if>
+            <if test="nickName != null">nick_name = #{nickName},</if>
+            <if test="language != null">language = #{language},</if>
+            <if test="country != null">country = #{country},</if>
+            <if test="sessionKey != null">session_key = #{sessionKey},</if>
+        </trim> 
+        where openid = #{openid} and is_deleted = false
+    </update> 
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

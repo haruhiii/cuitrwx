@@ -1,21 +1,28 @@
 
 
-server:
-    port: 8081
-
+server:  
+    port: 11443
+    ssl:    
+      enabled: true                    
+      key-store-password: 73e7tkfr4y2r0
+      key-store: classpath:cuitrwx.jks
+      key-store-type: JKS
+      
 eureka:
   client:
     service-url:
       defaultZone: http://eurekaserver:11400/eureka/,http://eurekaserver1:11400/eureka/
   instance:
     instance-id: ${spring.cloud.client.ip-address}:${server.port}
-    preferIpAddress: true
 
 spring:
   application:
     name: gateway
   cloud:
     gateway:
+      httpclient:
+        ssl:
+          use-insecure-trust-manager: true
       discovery:
         locator:
           enabled: true

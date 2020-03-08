@@ -3,22 +3,39 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--namespace绑定一个对应的dao/mapper接口-->
-<mapper namespace="cn.cuitrwx.database.dao.AppointmentUserDao">
+<mapper namespace="cn.cuitrwx.database.dao.AppointmentDao">
 
-    <select id="getAppointment" resultType="cn.cuitrwx.database.model.Appointment">
-        select * from cuitrwx.appointment where id = #{id} and status = "2" or status = "3";
-    </select>
-    <select id="getAllAppointment" resultType="cn.cuitrwx.database.model.Appointment">
+    <resultMap type="cn.cuitrwx.database.model.AppointmentPO" id="AppointmentMap">
+        <id property="id" column="id" />
+        <result property="openid" column="openid" />
+        <result property="matter" column="matter" />
+        <result property="comment" column="comment" />
+        <result property="status" column="status" />
+        <result property="requestDate" column="request_date" />
+        <result property="ensureTime" column="ensure_Time" />
+    </resultMap>
+
+    <select id="getAppointment"  resultMap="AppointmentMap">
         select * from cuitrwx.appointment where id = #{id}
     </select>
 
-    <insert id="postAppointment" parameterType="cn.cuitrwx.database.model.Appointment">
-        insert into cuitrwx.appointment(id, begintime, endtime, status, illustrate,
-        createTime)values(#{id},#{begintime},#{endtime}, #{status},#{illustrate},#{createTime})
+    <select id="getAppointments" resultMap="AppointmentMap">
+        select * from cuitrwx.appointment  order by id  desc  limit #{start},#{total}
+    </select>
+
+    <insert id="postAppointment" parameterType="cn.cuitrwx.database.model.AppointmentPO">
+        insert into cuitrwx.appointment(openid, matter,request_date)
+        values(#{openid},#{matter},#{requestDate})
     </insert>
 
-    <update id="cancel">
-        update cuitrwx.appointment set status = 0 where id = #{id}
+    <update id="putAppointment" parameterType="cn.cuitrwx.database.model.AppointmentPO">
+        update cuitrwx.appointment 
+        <trim prefix="set" suffixOverrides=",">
+            <if test="comment != null">comment=#{comment},</if>
+            <if test="status != null">status=#{status},</if>
+            <if test="ensureTime != null">ensure_time=#{ensureTime},</if>
+        </trim> 
+        where id = #{id}
     </update>
 
 </mapper>

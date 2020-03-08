@@ -6,7 +6,7 @@
 
 
 <mapper namespace="cn.cuitrwx.database.dao.ArticleDao">
-    <resultMap type="cn.cuitrwx.database.model.ArticlePO" id="ArticlePO">
+    <resultMap type="cn.cuitrwx.database.model.ArticlePO" id="ArticleMap">
         <id property="id" column="id" />
         <result property="title" column="title" />
         <result property="outline" column="outline" />
@@ -14,12 +14,12 @@
         <result property="createTime" column="create_time" />
     </resultMap>
 
-    <select id="getArticle"  resultType="cn.cuitrwx.database.model.ArticlePO">
+    <select id="getArticle"  resultMap="ArticleMap">
         select * from cuitrwx.article where id = #{id} and is_deleted = false
     </select>
 
-    <select id="getArticles"  resultType="cn.cuitrwx.database.model.ArticlePO">
-        select * from cuitrwx.article where  is_deleted = false order by create_time  desc  limit #{start},#{total}
+    <select id="getArticles" resultMap="ArticleMap">
+        select id,title,outline from cuitrwx.article where  is_deleted = false order by id  desc  limit #{start},#{total}
     </select>
 
     <insert id="postArticle" parameterType="cn.cuitrwx.database.model.ArticlePO">
@@ -36,8 +36,8 @@
         <trim prefix="set" suffixOverrides=",">
             <if test="title != null">title=#{title},</if>
             <if test="outline != null">outline=#{outline},</if>
-            <if test="content != content">content=#{content},</if>
+            <if test="content != null">content=#{content},</if>
         </trim> 
-        where id = #{id}
+        where id = #{id} and is_deleted = false
     </update>
 </mapper>

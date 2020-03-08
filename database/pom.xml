@@ -96,7 +96,7 @@
 		</dependency>
 		<!--	swagger2 - end -->
 	</dependencies>
-
+	
 	<dependencyManagement>
 		<dependencies>
 			<dependency>

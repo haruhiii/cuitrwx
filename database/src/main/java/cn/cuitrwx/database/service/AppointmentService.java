@@ -1,18 +1,17 @@
 package cn.cuitrwx.database.service;
 
-
 import cn.cuitrwx.database.model.DataResponseVO;
-import cn.cuitrwx.database.model.Appointment;
+import cn.cuitrwx.database.model.AppointmentPO;
 
 import java.util.List;
 
 public interface AppointmentService {
 
-    DataResponseVO<Appointment> getAppointment(String id);
+    AppointmentPO getAppointment(Integer id);
 
-    DataResponseVO<List<Appointment>> getAllAppointment(String id);
+    List<AppointmentPO> getAppointments(Integer start,Integer total);
 
-    DataResponseVO postAppointment(Appointment appointment);
-
-    DataResponseVO cancel(String id);
+    Integer postAppointment(AppointmentPO newAppointment);
+    
+    Integer putAppointment(AppointmentPO newAppointment);
 }
