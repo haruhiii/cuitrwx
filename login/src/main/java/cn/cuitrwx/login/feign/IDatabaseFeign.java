@@ -9,15 +9,15 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import cn.cuitrwx.login.model.ConfigPO;
+import cn.cuitrwx.login.model.Appointment;
 import cn.cuitrwx.login.model.DataResponseVO;
 import cn.cuitrwx.login.model.StudentPO;
 
 
 @FeignClient(name = "database")
 public interface IDatabaseFeign {
-    @GetMapping("/configs")
-    DataResponseVO<List<ConfigPO>> getConfigs();
+    // @GetMapping("/configs")
+    // DataResponseVO<List<ConfigPO>> getConfigs();
 
     @GetMapping("/student")
     DataResponseVO<StudentPO> getStudent(@RequestParam("openid") String openid);
@@ -27,4 +27,15 @@ public interface IDatabaseFeign {
 
     @PutMapping("/student")
     DataResponseVO<Integer> putStudent(@RequestBody StudentPO newStudent);
-}
+
+    @PutMapping("/studentbase")
+    DataResponseVO<Integer> updateStudentBaseInfo(@RequestBody StudentPO newStudent);
+    
+    @PostMapping("/appointment")
+    DataResponseVO<Integer> postAppointment(Appointment newAppointment);
+    
+    @GetMapping("/myappointments")
+    DataResponseVO<List<Appointment>> getAppointmentsByOpenid(@RequestParam("openid") String openid);
+
+
+}   

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import cn.cuitrwx.display.model.ArticlePO;
 import cn.cuitrwx.display.model.ConfigPO;
 import cn.cuitrwx.display.model.DataResponseVO;
+import cn.cuitrwx.display.model.Program;
 import cn.cuitrwx.display.model.QuestionPO;
 import cn.cuitrwx.display.model.SlidePO;
 
@@ -26,7 +27,8 @@ public interface IDatabaseFeign {
     @GetMapping("/questions")
     DataResponseVO<List<QuestionPO>> getQuestions();
     
-    @GetMapping("/configs")
-    DataResponseVO<List<ConfigPO>> getConfigs();
+    @GetMapping("/programs")
+    DataResponseVO<List<Program>> getPrograms();
+    
 
 }

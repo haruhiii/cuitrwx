@@ -10,5 +10,8 @@ import cn.cuitrwx.login.model.StudentPO;
 
 public interface LoginService {
 
-    public StudentPO getStudentInfo(String code) throws Exception;
+   StudentPO getStudentInfo(String code) throws Exception;
+   Integer updateStudentBaseInfo(StudentPO newStudent) throws Exception;
+   Integer putStudent(StudentPO newStudent) throws Exception ;
+
 }

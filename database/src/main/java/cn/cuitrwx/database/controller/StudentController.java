@@ -1,9 +1,9 @@
 package cn.cuitrwx.database.controller;
 
-import cn.cuitrwx.database.model.DataResponseVO;
-import cn.cuitrwx.database.model.ErrorCode;
-import cn.cuitrwx.database.model.StudentPO;
-import cn.cuitrwx.database.service.StudentService;
+import cn.cuitrwx.database.mapper.StudentMapper;
+import cn.cuitrwx.database.model.PO.Student;
+import cn.cuitrwx.database.model.VO.DataResponse;
+import cn.cuitrwx.database.model.VO.ErrorCode;
 
 import java.util.List;
 
@@ -13,61 +13,81 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class StudentController {
     @Autowired
-    private StudentService studentService;
+    private StudentMapper studentMapper;
 
     
     @GetMapping("/student")
-    DataResponseVO<StudentPO> getStudent(@RequestParam("openid") String openid){
+    DataResponse<Student> getStudent(@RequestParam("openid") String openid){
         try {
-            StudentPO student = studentService.getStudent(openid);
+            Student student = studentMapper.getStudent(openid);
             return student==null?
-                    new DataResponseVO<>(ErrorCode.EMPTY):new DataResponseVO<>(student);
+                    new DataResponse<>(ErrorCode.EMPTY):new DataResponse<>(student);
         } catch (Exception e) {
             e.printStackTrace();
-            return new DataResponseVO<>(ErrorCode.FAILED);
+            return new DataResponse<>(ErrorCode.FAILED);
         }
     }
 
     @GetMapping("/students")
-    DataResponseVO<List<StudentPO>> getStudents(@RequestParam("start") Integer start,@RequestParam("total") Integer total){
+    DataResponse<List<Student>> getStudents(@RequestParam("start") Integer start,@RequestParam("total") Integer total){
         try {
-            List students = studentService.getStudents(start,total);
+            List students = studentMapper.getStudents(start,total);
             return students == null||students.size()==0?
-                    new DataResponseVO<>(ErrorCode.EMPTY):new DataResponseVO<>(students);
+                    new DataResponse<>(ErrorCode.EMPTY):new DataResponse<>(students);
         } catch (Exception e) {
             e.printStackTrace();
-            return new DataResponseVO<>(ErrorCode.FAILED);
+            return new DataResponse<>(ErrorCode.FAILED);
         }
     }
     @PostMapping("/student")
-    DataResponseVO<Integer> postStudent(@RequestBody StudentPO newStudent){
+    DataResponse<Integer> postStudent(@RequestBody Student newStudent){
+
         try {
-            return  studentService.postStudent(newStudent) == 0?
-                    new DataResponseVO<>(ErrorCode.USELESS):new DataResponseVO<>(1);
+            return  studentMapper.postStudent(newStudent) == 0?
+                    new DataResponse<>(ErrorCode.USELESS):new DataResponse<>(1);
         } catch (Exception e) {
             e.printStackTrace();
-            return new DataResponseVO<>(ErrorCode.FAILED);
+            return new DataResponse<>(ErrorCode.FAILED);
         }
     }
 
     @PutMapping("/student")
-    DataResponseVO<Integer> putStudent(@RequestBody StudentPO newStudent){
+    DataResponse<Integer> putStudent(@RequestBody Student newStudent){
+        if(newStudent.getPhone()!=null && newStudent.getPhone()!=""){
+            newStudent.setCompeleted(true);
+        }
         try {
-            return  studentService.putStudent(newStudent) == 0?
-                    new DataResponseVO<>(ErrorCode.USELESS):new DataResponseVO<>(1);
+            return  studentMapper.putStudent(newStudent) == 0?
+                    new DataResponse<>(ErrorCode.USELESS):new DataResponse<>(1);
         } catch (Exception e) {
             e.printStackTrace();
-            return new DataResponseVO<>(ErrorCode.FAILED);
+            return new DataResponse<>(ErrorCode.FAILED);
         }
     }
     @DeleteMapping("/student")
-    DataResponseVO<Integer> deleteStudent(@RequestParam("openid") String openid){
+    DataResponse<Integer> deleteStudent(@RequestParam("openid") String openid){
+        
         try {
-            return  studentService.deleteStudent(openid) == 0?
-                    new DataResponseVO<>(ErrorCode.USELESS):new DataResponseVO<>(1);
+            return  studentMapper.deleteStudent(openid) == 0?
+                    new DataResponse<>(ErrorCode.USELESS):new DataResponse<>(1);
         } catch (Exception e) {
             e.printStackTrace();
-            return new DataResponseVO<>(ErrorCode.FAILED);
+            return new DataResponse<>(ErrorCode.FAILED);
+        }
+    }
+    @PutMapping("/studentbase")
+    public DataResponse<Integer>  updateStudentBaseInfo(@RequestBody  Student newStudent){
+        System.out.println("------------------------");
+        System.out.println(newStudent.getOpenid());
+        System.out.println("------------------------");
+        System.out.println(newStudent.getAvatarUrl());
+
+        try {
+            return  studentMapper.updateStudentBaseInfo(newStudent) == 0?
+                new DataResponse<>(ErrorCode.USELESS):new DataResponse<>(1);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new DataResponse<>(ErrorCode.FAILED);
         }
     }
 

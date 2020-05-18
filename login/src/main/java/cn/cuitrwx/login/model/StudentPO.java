@@ -23,9 +23,27 @@ public class StudentPO {
     private String language;
     private String country;
     private String sessionKey;
+    private String phone;
+    private Boolean compeleted;
 
     public String getAcademy() {
         return academy;
+    }
+
+    public Boolean getCompeleted() {
+        return compeleted;
+    }
+
+    public void setCompeleted(Boolean compeleted) {
+        this.compeleted = compeleted;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getClassName() {

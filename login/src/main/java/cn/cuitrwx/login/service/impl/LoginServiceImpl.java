@@ -49,24 +49,24 @@ public class LoginServiceImpl implements LoginService {
         if(result.getErrCode()==ErrorCode.FAILED){
             throw new Exception("数据库错误");
         }
-        return null;
+        return newStudent;
     }
     Map<String,String> getSessionAndOpenid(String code) throws Exception{
         RestTemplate restTemplate=new RestTemplate();
-        DataResponseVO<List<ConfigPO>>  configs = databaseFeign.getConfigs();
-        String appid = "";
-        String secret = "";
-        if(configs.getErrCode()==ErrorCode.SUCCESS) {
-            for(ConfigPO config : configs.getData()){
-                if(config.getProperty().equals("AppSecret")){
-                    secret = config.getValue();
-                }else if(config.getProperty().equals("APPID")){
-                    appid = config.getValue();
-                }
-            }
-        }else{
-            throw new Exception("配置信息获取失败");
-        }
+        // DataResponseVO<List<ConfigPO>>  configs = databaseFeign.getConfigs();
+        String appid = "wxf328cb70e3f35438";
+        String secret = "531931ef6fa4b6cc348f721dd9b8ba46";
+        // if(configs.getErrCode()==ErrorCode.SUCCESS) {
+        //     for(ConfigPO config : configs.getData()){
+        //         if(config.getProperty().equals("AppSecret")){
+        //             secret = config.getValue();
+        //         }else if(config.getProperty().equals("APPID")){
+        //             appid = config.getValue();
+        //         }
+        //     }
+        // }else{
+        //     throw new Exception("配置信息获取失败");
+        // }
         String url="https://api.weixin.qq.com/sns/jscode2session";
         Map<String, String> map = new HashMap<String, String>();
         map.put("APPID",appid);
@@ -81,5 +81,35 @@ public class LoginServiceImpl implements LoginService {
         res.put("session_key", jsonObject.get("session_key"));
         res.put("openid", jsonObject.get("openid"));
         return res;
+    }
+
+    @Override
+    public Integer updateStudentBaseInfo(StudentPO newStudent) throws Exception {
+
+        DataResponseVO<Integer> res = databaseFeign.updateStudentBaseInfo(newStudent);
+        switch(res.getErrCode()){
+            case SUCCESS:
+                return res.getData();
+            case FAILED:
+                throw new Exception("数据库错误");
+            default:
+                break;
+        }
+        return 0;
+    }
+
+    @Override
+    public Integer putStudent(StudentPO newStudent) throws Exception {
+
+        DataResponseVO<Integer> res = databaseFeign.putStudent(newStudent);
+        switch(res.getErrCode()){
+            case SUCCESS:
+                return res.getData();
+            case FAILED:
+                throw new Exception("数据库错误");
+            default:
+                break;
+        }
+        return 0;
     }
 }
